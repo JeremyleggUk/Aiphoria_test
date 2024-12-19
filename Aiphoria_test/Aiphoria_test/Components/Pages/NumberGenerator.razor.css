@@ -1,0 +1,76 @@
+﻿.inputFields {
+    display: flex;
+}
+
+.minValue {
+    display: inline-flex;
+    max-height: max-content;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.maxValue {
+    display: inline-flex;
+    max-height: max-content;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.countValue {
+    display: inline-flex;
+    max-height: max-content;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.countNumber {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-family: Montserrat, sans-serif;
+    font-size: 50px;
+}
+
+.allFields {
+    width: max-content;
+}
+
+.generate {
+    text-align-last: center;
+    margin: 10px;
+}
+
+.inputButton {
+    height: fit-content;
+}
+
+.generatedNumber {
+    margin: 5px;
+    display: inline-block;
+}
+
+.generatedNumbers {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align-last: center;
+    font-family: Montserrat, sans-serif;
+    font-size: 30px;
+}
+
+.previousNumbers {
+    margin-top: 50px;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+}
+
+.inputTitle {
+    margin-left: 20px;
+}
+
+table {
+    min-width: -webkit-fill-available;
+}
+
+h3 {
+    font-family: Montserrat, sans-serif;
+    margin-bottom: 0;
+}

@@ -1,0 +1,119 @@
+﻿@page "/"
+@using BlazorBootstrap
+@rendermode InteractiveServer
+
+@attribute [StreamRendering]
+
+<PageTitle>Lottery Number Generator</PageTitle>
+
+<h1>Lottery Number Generator</h1>
+
+<p>Press generate to create a new set of lottery numbers</p>
+
+<div class="allFields">
+    <div class="inputFields">
+        <div>
+            <p class="inputTitle">Minimum value:</p>
+            <div class="minValue">
+                <Button class="inputButton" Color="ButtonColor.Secondary" @onclick="(() => AddToMin(-1))"> <Icon Name="IconName.Dash" /> </Button>
+                <h3 class="countNumber">@MinValueOfRandomNumber</h3>
+                <Button class="inputButton" Color="ButtonColor.Secondary" @onclick="(() => AddToMin(1))"> <Icon Name="IconName.Plus" />  </Button>
+            </div>
+        </div>
+
+        <div>
+            <p class="inputTitle">Maximum value:</p>
+            <div class="maxValue">
+                <Button class="inputButton" Color="ButtonColor.Secondary" @onclick="(() => AddToMax(-1))"> <Icon Name="IconName.Dash" /> </Button>
+                <h3 class="countNumber">@MaxValueOfRandomNumber</h3>
+                <Button class="inputButton" Color="ButtonColor.Secondary" @onclick="(() => AddToMax(1))"> <Icon Name="IconName.Plus" /> </Button>
+            </div>
+        </div>
+
+        <div>
+            <p class="inputTitle">Numbers to generate:</p>
+            <div class="countValue">
+                <Button class="inputButton" Color="ButtonColor.Secondary" @onclick="(() => AddToCount(-1))"> <Icon Name="IconName.Dash" /> </Button>
+                <h3 class="countNumber">@RandomNumberCountToGenerate</h3>
+                <Button class="inputButton" Color="ButtonColor.Secondary" @onclick="(() => AddToCount(1))"> <Icon Name=" IconName.Plus" /> </Button>
+            </div>
+        </div>
+    </div>
+    <!--
+        Given more time I would disable this button if the inputs were invalid
+    -->
+    <div class="generate">
+        <Button Color="ButtonColor.Primary" @onclick="GenerateNumbers"> Generate </Button>
+    </div>
+
+    @if (RandomNumbers != null)
+    {
+        <div class="generatedNumbers">
+            <h4> Generated numbers:</h4>
+            @foreach (var randomNumber in RandomNumbers)
+            {
+                <div class="generatedNumber">
+                    @randomNumber
+                </div>
+            }
+        </div>
+    }
+
+    @if (PreviousNumberSet.Count > 0)
+    {
+        <h5> Previously generated number sets:</h5>
+        <table>
+            @foreach (var peviousNumberSet in PreviousNumberSet)
+            {
+                <tr>
+                @foreach (var previousNumbers in peviousNumberSet)
+                {
+                    <td class="previousNumbers">
+                        @previousNumbers
+                    </td>
+                }
+                </tr>
+            }
+        </table>
+    }
+</div>
+
+
+
+@code {
+    private List<int>? RandomNumbers;
+    private List<List<int>> PreviousNumberSet = new List<List<int>>();
+
+    private int MinValueOfRandomNumber = 1;
+    private int MaxValueOfRandomNumber = 49;
+    private int RandomNumberCountToGenerate = 6;
+
+    private void GenerateNumbers()
+    {
+        // I would add sanity checks here if i had more time, preventing the call to generate if the inputs were invalid
+        if (RandomNumbers != null)
+        {
+            PreviousNumberSet.Add(RandomNumbers);
+        }
+        RandomNumbers = LotteryNumberGenerator.GenerateRandomNumbersForLength(
+            MinValueOfRandomNumber, 
+            MaxValueOfRandomNumber, 
+            RandomNumberCountToGenerate
+        );
+    }
+
+    private void AddToMin(int valueToAdd)
+    {
+        MinValueOfRandomNumber += valueToAdd;
+    }
+    
+    private void AddToMax(int valueToAdd)
+    {
+        MaxValueOfRandomNumber += valueToAdd;
+    }
+
+    private void AddToCount(int valueToAdd)
+    {
+        RandomNumberCountToGenerate += valueToAdd;
+    }
+}
